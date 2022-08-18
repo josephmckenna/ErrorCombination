@@ -6,6 +6,14 @@
 // Implementation of errors documented in
 // http://www.met.rdg.ac.uk/~swrhgnrj/combining_errors.pdf
 
+class edouble;
+
+edouble operator*(const double d, const edouble &rhs);
+edouble operator/(const double d, const edouble &rhs);
+edouble pow(const edouble& rhs, const double exponent);
+edouble sqrt(const edouble& rhs);
+edouble log(const edouble& rhs);
+
 class edouble
 {
 public:
@@ -144,15 +152,20 @@ public:
       return ans;
    }
 
+   edouble operator^(const double exponent) const
+   {
+      return pow(*this, exponent);
+   }
+
 };
 
-static edouble operator*(const double d, const edouble &rhs)
+edouble operator*(const double d, const edouble &rhs)
 {
    // Multiply function is mutable, reuse code:
    return rhs * d;
 }
 
-static edouble operator/(const double d, const edouble &rhs)
+edouble operator/(const double d, const edouble &rhs)
 {
    edouble temp(0.0, 0.0);
    temp.value = d / rhs.value;
@@ -160,7 +173,7 @@ static edouble operator/(const double d, const edouble &rhs)
    return temp;
 }
 
-static edouble pow(const edouble& rhs, const double exponent)
+edouble pow(const edouble& rhs, const double exponent)
 {
    edouble temp(0.0, 0.0);
    temp.value = pow(rhs.value,exponent);
@@ -168,18 +181,19 @@ static edouble pow(const edouble& rhs, const double exponent)
    return temp;
 }
 
-static edouble sqrt(const edouble& rhs)
+edouble sqrt(const edouble& rhs)
 {
    return pow(rhs,0.5);
 }
 
-static edouble log(const edouble& rhs)
+edouble log(const edouble& rhs)
 {
    edouble temp(0.0, 0.0);
    temp.value = log(rhs.value);
    temp.error = fabs( 1 / rhs.value ) * rhs.error;
    return temp;
 }
+
 
 #include <ostream>
 static std::ostream &operator<<(std::ostream &os, const edouble &rhs)
