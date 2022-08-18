@@ -30,9 +30,11 @@ int main() {
     edouble l = sqrt(a);
     edouble m = pow(a, 2);
     edouble n = a*a;
+    edouble o = log(a);
     std::cout << "sqrt(" << a << ") = " << l << std::endl;
     std::cout << "pow(" << a << ",2) = " << m << std::endl;
     std::cout << a << "*" << a << " = " << n << std::endl;
+    std::cout << "log(" << a << ") = " << o << std::endl;
 
     // Output:
     //

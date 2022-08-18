@@ -173,6 +173,14 @@ static edouble sqrt(const edouble& rhs)
    return pow(rhs,0.5);
 }
 
+static edouble log(const edouble& rhs)
+{
+   edouble temp(0.0, 0.0);
+   temp.value = log(rhs.value);
+   temp.error = fabs( 1 / rhs.value ) * rhs.error;
+   return temp;
+}
+
 #include <ostream>
 static std::ostream &operator<<(std::ostream &os, const edouble &rhs)
 {
