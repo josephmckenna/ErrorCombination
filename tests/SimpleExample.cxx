@@ -1,9 +1,10 @@
+// Copyright 2022 Joseph McKenna [legal/copyright]
+
 #include "ErrorCombination.h"
 
 #include <iostream>
 
-int main()
-{
+int main() {
     edouble a(4);
     edouble b(9);
 
@@ -25,6 +26,13 @@ int main()
     edouble k = 2.0 / a;
     std::cout << a << " * " << 2.0 << " = " << j << std::endl;
     std::cout << 2.0 << " / " << a << " = " << k << std::endl;
+
+    edouble l = sqrt(a);
+    edouble m = pow(a, 2);
+    edouble n = a*a;
+    std::cout << "sqrt(" << a << ") = " << l << std::endl;
+    std::cout << "pow(" << a << ",2) = " << m << std::endl;
+    std::cout << a << "*" << a << " = " << n << std::endl;
 
     // Output:
     //

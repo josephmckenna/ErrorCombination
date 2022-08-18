@@ -72,6 +72,14 @@ public:
    // template <class T>
    edouble(double) = delete;
 
+   bool operator==(const edouble& rhs)
+   {
+      if (value == rhs.value &&
+         error == rhs.error)
+         return true;
+      return false;
+   }
+
    // Combination functions
    edouble operator+(const edouble &rhs) const
    {
@@ -135,15 +143,16 @@ public:
       ans.error /= d;
       return ans;
    }
+
 };
 
-edouble operator*(const double d, const edouble &rhs)
+static edouble operator*(const double d, const edouble &rhs)
 {
    // Multiply function is mutable, reuse code:
    return rhs * d;
 }
 
-edouble operator/(const double d, const edouble &rhs)
+static edouble operator/(const double d, const edouble &rhs)
 {
    edouble temp(0.0, 0.0);
    temp.value = d / rhs.value;
@@ -151,8 +160,21 @@ edouble operator/(const double d, const edouble &rhs)
    return temp;
 }
 
+static edouble pow(const edouble& rhs, const double exponent)
+{
+   edouble temp(0.0, 0.0);
+   temp.value = pow(rhs.value,exponent);
+   temp.error = fabs(temp.value / rhs.value) * rhs.error;
+   return temp;
+}
+
+static edouble sqrt(const edouble& rhs)
+{
+   return pow(rhs,0.5);
+}
+
 #include <ostream>
-std::ostream &operator<<(std::ostream &os, const edouble &rhs)
+static std::ostream &operator<<(std::ostream &os, const edouble &rhs)
 {
    os << "(" << rhs.value << " +/- " << rhs.error << ")";
    return os;
